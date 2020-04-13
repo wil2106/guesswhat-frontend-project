@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Guesswhat backend api</title>
+       <script src="/socket.io/socket.io.js"></script>
+       <script src="/categoriesEnum.js"></script>
+    </head>
+    <body>
+        <h1>Hi welcome to guesswhat api tester</h1>
+        <label for="categoriesSelect">Category:</label>
+
+        <select id="categoriesSelect">
+        </select>
+        <script type="text/javascript">
+            var socket = io();
+
+            var roomId;
+            //categories initialization
+            var select = document.getElementById('categoriesSelect');
+            for(var category of Object.values(CategoriesEnum)){
+                var item = document.createElement('option');
+                item.value = category;
+                item.innerHTML = category;
+                select.appendChild(item);
+            }
+            
+            //Events------------------------------------------------------------------------
+
+	    	socket.on('connect', function(){
+	    		console.log("connected");
+            });
+
+
+            socket.on('joinRoomResponse', function(data){
+	    		if(data.error === true){
+                    alert(data.message)
+                }else{
+                    roomId = data.room;
+                    alert(`joining room ${data.room}`);
+                    document.getElementById("room").style.display = 'block';
+                    document.getElementById("chat").style.innerHTML = '';
+                    document.getElementById('roomTitle').innerHTML = `Room : ${data.room}`;
+                }
+            });
+
+            socket.on('roomsByCategory', function(data){
+                var list = document.getElementById('categoryList');
+                list.innerHTML = '';
+                for(var room of data.rooms){
+                    var item = document.createElement('li');
+                    item.innerHTML = `id: ${room.id} | players : ${room.nbPlayers}/${room.playerLimit} | category: ${room.category}`
+                    list.appendChild(item);
+                }
+                
+            });
+
+                        
+            socket.on('imageUpdate', function(data){             
+                document.getElementById("image").src = data.image;
+            });
+
+            socket.on('message', function(data){        
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = data.message.playerUsername +" : "+data.message.text;
+                messageDiv.setAttribute("style","width:auto");
+                if(data.message.valid == true)
+                    messageDiv.style.backgroundColor = 'green';
+
+                var chat = document.getElementById("chat");
+                chat.appendChild(messageDiv); 
+                chat.scrollTop = chat.scrollHeight;
+            });
+
+            socket.on('pointUpdate', function(data){        
+                document.getElementById("playerList").innerHTML += JSON.stringify(data);      
+            });
+
+            socket.on('playerJoined', function(data){        
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = data.playerUsername +" joined the game";
+                messageDiv.setAttribute("style","font-style:italic;");
+                var chat = document.getElementById("chat");
+                chat.appendChild(messageDiv); 
+                chat.scrollTop = chat.scrollHeight;
+            });
+
+            socket.on('playerLeft', function(data){        
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = data.playerUsername +" left the game";
+                messageDiv.setAttribute("style","font-style:italic;");
+                var chat = document.getElementById("chat");
+                chat.appendChild(messageDiv); 
+                chat.scrollTop = chat.scrollHeight;
+            });
+
+            socket.on('playerList', function(data){        
+                document.getElementById("playerList").innerHTML = JSON.stringify(data);
+            });
+
+            socket.on('playerVotedToSkip', function(data){        
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = data.username + " voted to skip ("+data.skipCount+"/"+data.playerCount+")";
+                messageDiv.setAttribute("style","font-style:italic;");
+                var chat = document.getElementById("chat");
+                chat.appendChild(messageDiv); 
+                chat.scrollTop = chat.scrollHeight;
+            });
+
+            socket.on('newRoundStarting', function(){        
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = "New round starting";
+                messageDiv.setAttribute("style","font-style:italic;");
+                var chat = document.getElementById("chat");
+                chat.appendChild(messageDiv); 
+                chat.scrollTop = chat.scrollHeight;
+                document.getElementById("skipButton").disabled = false;
+            });
+
+            //Actions------------------------------------------------------------------------
+            
+            function getRoomsByCategory(){
+                var e = document.getElementById("categoriesSelect");
+                var selectedCategory = e.options[e.selectedIndex].text;
+                socket.emit('getRoomsByCategory',{ category : selectedCategory});
+            }
+
+
+            function joinRoom(){
+                var roomId = document.getElementById("roomId").value.trim();
+                if(roomId === '')
+                    alert('Id is missing')
+                else {
+                    var username = prompt(`Please enter your username to join room : ${roomId}`, "");
+                    if (username.trim().length>0) {
+                        socket.emit('joinRoom',{ roomId : roomId, username : username});
+                    }else{
+                        alert('Username is missing')
+                    }
+                }
+            }
+            
+            function leaveRoom(){
+                document.getElementById("image").src = '';
+                document.getElementById('roomTitle').innerHTML = 'Room : none';
+                socket.emit('leaveRoom',{ roomId : roomId});
+                document.getElementById("room").style.display = "none";
+            }
+
+            function submitMessage(){
+                let input = document.getElementById('messageInput');
+                let text = input.value.trim();
+                input.value = '';
+                if(text.length > 0){
+                    let message = {
+                        roomId : roomId,
+                        text : text
+                    }
+                    socket.emit('submitMessage',message);
+                }
+            }
+
+            function voteToSkip(){
+                let message = {
+                        roomId : roomId
+                }
+                socket.emit('voteToSkip',message);
+                document.getElementById("skipButton").disabled = true;
+            }
+
+
+        </script>
+        <button onclick="getRoomsByCategory()">getRoomsByCategory</button>
+        <ul id='categoryList'>
+        </ul>
+        <input type="text" id="roomId">
+        <button onclick="joinRoom()">joinRoom</button>
+        <br>
+        <br>
+        <div id="room" style='border-style:solid;display:none'>
+            <p id='roomTitle'>Room : none</p>
+            <br>
+            <br>
+            <button onclick="leaveRoom()">leaveRoom</button>
+            <br>
+            <img src="" alt="Loading..." id='image'><textarea rows=5 readonly id='playerList'></textarea>
+            <br>
+            <button onclick="voteToSkip()" id="skipButton">voteToSkip</button>
+            <br>
+            <br>
+            <div rows=8 readonly id='chat' style="height:100px;max-height:100px;border:solid;overflow-y: scroll;"></div>
+            <br>
+            <input type="text" id='messageInput'>
+            <br>
+            <button onclick="submitMessage()">Send</button>
+        </div>
+        
+    </body>
+</html>

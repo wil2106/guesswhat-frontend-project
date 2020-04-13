@@ -1,0 +1,95 @@
+{
+    "Mangas":[
+        {
+            "link":"https://cdn-media.rtl.fr/online/image/2020/0130/7799989264_one-piece-arrive-sur-netflix-en-live-action.jpg",
+            "secretWords":["one piece","onepiece"]
+        },
+        {
+            "link":"https://www.journaldugeek.com/content/uploads/2019/12/capture-decran-2019-12-20-a-11-32-14-640x342.png",
+            "secretWords":["dragon ball","dragon ball z","dragonball"]
+        },
+        {
+            "link":"https://media.senscritique.com/media/000017947429/source_big/Death_Note.jpg",
+            "secretWords":["death note","deathnote"]
+        },
+        {
+            "link":"https://www.serieously.com/wp-content/uploads/2020/03/Naruto.jpg",
+            "secretWords":["naruto"]
+        },
+        {
+            "link":"https://image.animedigitalnetwork.fr/license/mha/tv4/web/affiche_370x0.jpg",
+            "secretWords":["my hero academia","mha"]
+        },
+        {
+            "link":"https://fr.web.img2.acsta.net/r_640_360/newsv7/19/04/10/17/03/0985597.jpg",
+            "secretWords":["one punch man"]
+        }
+    ],
+    "Games":[
+        {
+            "link":"https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg",
+            "secretWords":["league of legends","lol"]
+        },
+        {
+            "link":"https://cdn.pixabay.com/photo/2016/07/30/20/39/mario-1557973_960_720.jpg",
+            "secretWords":["mario","super mario"]
+        },
+        {
+            "link":"https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/06/halo-3-wallpaper-e1570444280692.jpg",
+            "secretWords":["halo","master chief"]
+        },
+        {
+            "link":"https://www.pomu.fr/files/game/img_mobile/83/Pacman_.jpg",
+            "secretWords":["pacman","pac-man","pac man"]
+        },
+        {
+            "link":"https://otakugame.fr/wp-content/uploads/2019/10/fortnite-chapitre-2-quels-sont-l.jpg",
+            "secretWords":["fortnite"]
+        },
+        {
+            "link":"https://image.jeuxvideo.com/images-sm/jaquettes/00034710/jaquette-grand-theft-auto-v-pc-cover-avant-g-1415122060.jpg",
+            "secretWords":["gta","grand theft auto","gta 5","grand theft auto 5"]
+        },
+        {
+            "link":"https://media.begeek.fr/2019/07/Rocket-League-Psyonix-660x374.jpg",
+            "secretWords":["rocket league"]
+        },
+        {
+            "link":"https://cdn03.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_Minecraft.jpg",
+            "secretWords":["minecraft"]
+        },
+        {
+            "link":"https://i.jeuxactus.com/datas/jeux/c/o/counter-strike-global-offensive/xl/counter-strike-global-o-5d09f1dfbba6a.jpg",
+            "secretWords":["counter strike","cs"]
+        },
+        {
+            "link":"https://i.jeuxactus.com/datas/jeux/c/o/counter-strike-global-offensive/xl/counter-strike-global-o-5d09f1dfbba6a.jpg",
+            "secretWords":["counter strike","cs"]
+        },
+        {
+            "link":"https://cdn03.nintendo-europe.com/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_overwatch/Overwatch_screenshot_05.jpg",
+            "secretWords":["overwatch"]
+        },
+        {
+            "link":"https://static.hitek.fr/img/actualite/ill_m/492570005/afk.png",
+            "secretWords":["world of warcraft","wow"]
+        },
+        {
+            "link":"https://cdn.mos.cms.futurecdn.net/9A6pnMzyQtsLdPaXAFwabR.jpg",
+            "secretWords":["hearthstone","hs"]
+        }
+    ],
+    "Series":[
+        
+    ],
+    "Films":[
+        
+    ],
+    "Sports":[
+        
+    ],
+    "Celebrities":[
+        
+    ]
+}
+  
