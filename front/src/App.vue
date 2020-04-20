@@ -1,22 +1,19 @@
 <template>
-  <div>
+  <div class="container">
     <HeaderBanner/>
-    <Categories />
-    <List />
+    <RoomContainer/>
   </div>
 </template>
 
 <script>
 import HeaderBanner from './components/header'
-import List from './components/rooms/list'
-import Categories from './components/rooms/categories'
+import RoomContainer from './components/roomContainer'
 
 export default {
   name: 'App',
   components: {
     HeaderBanner,
-    List,
-    Categories
+    RoomContainer
   },
   sockets: {
     connect: function () {
@@ -25,3 +22,18 @@ export default {
   }
 }
 </script>
+
+<style>
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  height: 100% !important;
+}
+</style>

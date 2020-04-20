@@ -19,7 +19,8 @@ const actions = {
         state.commit('update', {
             data: data.rooms
         })
-    }
+    },
+
 }
 
 export default {
