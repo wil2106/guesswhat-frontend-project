@@ -5,26 +5,10 @@
     </div>
     <div class="full">
       <md-list class="md-layout full">
-        <md-list-item v-on:click="onSelected('All')" class="content">
-          <span class="md-list-item-text">All</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Mangas')" class="content">
-          <span class="md-list-item-text">Anime & Manga</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Games')" class="content">
-          <span class="md-list-item-text">Games</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Series')" class="content">
-          <span class="md-list-item-text">Series</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Sports')" class="content">
-          <span class="md-list-item-text">Sport</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Films')" class="content">
-          <span class="md-list-item-text">Films</span>
-        </md-list-item>
-        <md-list-item v-on:click="onSelected('Celebrities')" class="content">
-          <span class="md-list-item-text">Celebrities</span>
+        <md-list-item v-for="(item, index) in list" :key="index"
+        v-on:click="onSelected(item)" 
+        class="content">
+          <span class="md-list-item-text">{{item}}</span>
         </md-list-item>
       </md-list>
     </div>
@@ -45,13 +29,19 @@ export default {
         this.$socket.emit("getRoomsByCategory", { category: "All" });
       }
     }
-  }
+  },
+  data: function() {
+        return {
+            list: ['All', 'Mangas', 'Games', 'Series', 'Sports', 'Films', 'Celebrities']
+        }
+    }
 };
 </script>
 
 <style>
 .selected {
   color: cadetblue;
+  background-color: aquamarine;
 }
 .full {
   height: 100%;
