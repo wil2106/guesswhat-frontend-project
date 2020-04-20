@@ -31,3 +31,7 @@ https://www.figma.com/file/JZfd58OMaHcb03JukC3axp/guesswhat.io?node-id=0%3A1
 ## Branches
 * master branch is for production code (glitch link: https://wil2106-guesswhat-frontend-project.glitch.me)
 * dev branch is for WIP
+
+## Run in local
+* npm install
+* npm run server
