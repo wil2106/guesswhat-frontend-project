@@ -27,12 +27,10 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { mapGetters } from 'vuex'
 export default {
     name: 'Categories',
     methods: {
         ...mapMutations('categories', ['updateSelectedCategory']),
-        
         onSelected(category) {
             this.updateSelectedCategory(category)
         }
