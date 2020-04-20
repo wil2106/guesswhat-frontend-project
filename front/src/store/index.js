@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import roomList from './modules/roomList'
+import categories from './modules/categories'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     },
     getters: {},
     modules: {
-        roomList: roomList
+        roomList: roomList,
+        categories: categories
     }
 })

@@ -1,11 +1,10 @@
 <template>
   <div>
+      <h1> {{category}} </h1>
       <md-list>
-          <h4>Category</h4>
           <md-list-item v-for="(item, index) in roomList" :key="index">
-              <Card :name="item" />
+              <Card :name="index" :id="item.id" :playerLimit="item.playerLimit" :nbPlayers="item.nbPlayers"/>
           </md-list-item>
-          <button v-on:click="clickButton"> CLICK </button>
       </md-list>
   </div>
 </template>
@@ -19,13 +18,17 @@ export default {
     components: { Card },
     computed: {
         ...mapGetters('roomList', ['getRoomList']),
+        ...mapGetters('categories', ['getSelectedCategory']),
+        category () {
+            return this.getSelectedCategory
+        },
         roomList () {
             return this.getRoomList
         }
     },
-    methods: {
-        clickButton: function() {
-            this.$socket.emit('getRoomsByCategory', { category : 'Mangas'})
+    updated () {
+        if (this.category != undefined) {
+            this.$socket.emit('getRoomsByCategory', { category : this.category })
         }
     }
 }
