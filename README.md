@@ -13,8 +13,8 @@ This game answers to the need of fun and entertainement.
   * Chat 
   * Ranking
 ### Should have
-* Create private room (create a specific url to be shared)
-* Join private room (join via url or with a code)
+* Create private room (specify join code)
+* Join private room (join with a code)
 ### Nice to have
 * Submit images
 * Accounts with points persistence
