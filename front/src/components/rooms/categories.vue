@@ -32,7 +32,7 @@ export default {
     name: 'Categories',
     methods: {
         ...mapMutations('categories', ['updateSelectedCategory']),
-        ...mapGetters('categories', ['getSelectedCategory']),
+        
         onSelected(category) {
             this.updateSelectedCategory(category)
         }
