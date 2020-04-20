@@ -31,8 +31,14 @@ export default {
     name: 'Categories',
     methods: {
         ...mapMutations('categories', ['updateSelectedCategory']),
-        onSelected(category) {
+        async onSelected(category) {
             this.updateSelectedCategory(category)
+        if (category != undefined) {
+            this.$socket.emit('getRoomsByCategory', { category : category })
+        }
+        else {
+            this.$socket.emit('getRoomsByCategory', { category : 'All' })
+        }
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1> {{category}} </h1>
+      <h1> {{category? category: 'All'}} - Public Rooms </h1>
       <md-list>
           <md-list-item v-for="(item, index) in roomList" :key="index">
               <Card :name="index" :id="item.id" :playerLimit="item.playerLimit" :nbPlayers="item.nbPlayers"/>
@@ -24,11 +24,6 @@ export default {
         },
         roomList () {
             return this.getRoomList
-        }
-    },
-    updated () {
-        if (this.category != undefined) {
-            this.$socket.emit('getRoomsByCategory', { category : this.category })
         }
     }
 }
