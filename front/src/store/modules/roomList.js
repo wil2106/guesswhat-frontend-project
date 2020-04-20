@@ -6,11 +6,19 @@ const getters = {
     getRoomList: state => state.roomList
 }
 
-const mutations = {}
+const mutations = {
+    update(state, {
+        data
+    }) {
+        state.roomList = [].concat(data)
+    }
+}
 
 const actions = {
-    SOCKET_ROOMSBYCATEGORY(state, data) {
-        state.roomList = data.rooms
+    async SOCKET_roomsByCategory(state, data) {
+        state.commit('update', {
+            data: data.rooms
+        })
     }
 }
 
