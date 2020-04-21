@@ -7,23 +7,69 @@
        <script src="/categoriesEnum.js"></script>
     </head>
     <body>
+        <!-- ROW HTML-->
         <h1>Hi welcome to guesswhat api tester</h1>
+        <button onclick="getCategories()">getCategories (look in logs)</button> 
+        <hr>
+        <b>Create private room</b><br>
         <label for="categoriesSelect">Category:</label>
+        <select class="categoriesSelect" id="privateRoomCategoriesSelect"></select>
+        <button onclick="getPrivateRoomId()">getPrivateRoomId</button>  
+        <input readonly type="text" id="privateRoomId">
+        <button onclick="createPrivateRoom()">createPrivateRoom</button>  
+        <hr>
+        <b>Join private room</b><br>
+        <input type="text" id="privateRoomIdToJoin">
+        <button onclick="joinPrivateRoom()">joinPrivateRoom</button>    
+        <hr>
+        <b>Join public room</b><br>
+        <label for="categoriesSelect">Category:</label>
+        <select class="categoriesSelect"  id="publicRoomCategoriesSelect"></select>
+        <button onclick="getRoomsByCategory()">getRoomsByCategory</button>
+        <ul id='categoryList'>
+        </ul>
+        <textarea rows=5 readonly id='roomPlayersUpdates'></textarea>
+        <br>
+        <input type="text" id="roomId">
+        <button onclick="joinRoom()">joinRoom</button>
+        <hr>
+        <br>
+        <br>
+        <div id="room" style='border-style:solid;display:none'>
+            <p id='roomTitle'>Room : none</p>
+            <br>
+            <br>
+            <button onclick="leaveRoom()">leaveRoom</button>
+            <button onclick="startPrivateGame()">startPrivateGame</button>
+            <br>
+            <img src="" alt="Loading..." id='image'><textarea rows=5 readonly id='playerList'></textarea>
+            <br>
+            <button onclick="voteToSkip()" id="skipButton">voteToSkip</button>
+            <br>
+            <br>
+            <div rows=8 readonly id='chat' style="height:100px;max-height:100px;border:solid;overflow-y: scroll;"></div>
+            <br>
+            <input type="text" id='messageInput'>
+            <br>
+            <button onclick="submitMessage()">Send</button>
+        </div>
 
-        <select id="categoriesSelect">
-        </select>
+        <!-- JAVASCRIPT -->
         <script type="text/javascript">
             var socket = io();
 
             var roomId;
             //categories initialization
-            var select = document.getElementById('categoriesSelect');
-            for(var category of Object.values(CategoriesEnum)){
-                var item = document.createElement('option');
-                item.value = category;
-                item.innerHTML = category;
-                select.appendChild(item);
-            }
+            var selects = document.getElementsByClassName('categoriesSelect');
+            Object.entries(selects).map((select) => { 
+                for(var category of Object.values(CategoriesEnum)){
+                    var item = document.createElement('option');
+                    item.value = category;
+                    item.innerHTML = category;
+                    select[1].appendChild(item);
+                }
+            });
+            
             
             //Events------------------------------------------------------------------------
 
@@ -117,10 +163,22 @@
                 document.getElementById("skipButton").disabled = false;
             });
 
+            socket.on('roomPlayersUpdate', function(data){        
+                document.getElementById("roomPlayersUpdates").innerHTML += JSON.stringify(data); 
+            });
+
+            socket.on('privateRoomId', function(data){      
+                document.getElementById("privateRoomId").value = data.roomId; 
+            });
+
+            socket.on('categories', function(data){      
+                console.log(data)
+            });
+
             //Actions------------------------------------------------------------------------
             
             function getRoomsByCategory(){
-                var e = document.getElementById("categoriesSelect");
+                var e = document.getElementById("publicRoomCategoriesSelect");
                 var selectedCategory = e.options[e.selectedIndex].text;
                 socket.emit('getRoomsByCategory',{ category : selectedCategory});
             }
@@ -168,32 +226,52 @@
                 document.getElementById("skipButton").disabled = true;
             }
 
+            function getPrivateRoomId(){
+                socket.emit('getPrivateRoomId');
+            }
+
+            function createPrivateRoom(){
+                var e = document.getElementById("privateRoomCategoriesSelect");
+                let selectedCategory = e.options[e.selectedIndex].text;
+                let roomId = document.getElementById("privateRoomId").value;
+                let username = prompt(`Please enter your username to join private room : ${roomId}`, "");
+                if (username.trim().length>0) {
+                    let message = {
+                        category : selectedCategory,
+                        roomId : roomId, 
+                        username : username
+                    }
+                    socket.emit('createPrivateRoom',message);
+                }else{
+                    alert('Username is missing')
+                }
+            }
+
+            function startPrivateGame(){
+                let message = {
+                        roomId : roomId
+                    }
+                socket.emit('startPrivateGame',message);
+            }
+
+            function joinPrivateRoom(){
+                var roomId = document.getElementById("privateRoomIdToJoin").value.trim();
+                if(roomId === '')
+                    alert('Id is missing')
+                else {
+                    var username = prompt(`Please enter your username to join the private room : ${roomId}`, "");
+                    if (username.trim().length>0) {
+                        socket.emit('joinRoom',{ roomId : roomId, username : username});
+                    }else{
+                        alert('Username is missing')
+                    }
+                }
+            }
+
+            function getCategories(){
+                socket.emit('getCategories');
+            }
 
         </script>
-        <button onclick="getRoomsByCategory()">getRoomsByCategory</button>
-        <ul id='categoryList'>
-        </ul>
-        <input type="text" id="roomId">
-        <button onclick="joinRoom()">joinRoom</button>
-        <br>
-        <br>
-        <div id="room" style='border-style:solid;display:none'>
-            <p id='roomTitle'>Room : none</p>
-            <br>
-            <br>
-            <button onclick="leaveRoom()">leaveRoom</button>
-            <br>
-            <img src="" alt="Loading..." id='image'><textarea rows=5 readonly id='playerList'></textarea>
-            <br>
-            <button onclick="voteToSkip()" id="skipButton">voteToSkip</button>
-            <br>
-            <br>
-            <div rows=8 readonly id='chat' style="height:100px;max-height:100px;border:solid;overflow-y: scroll;"></div>
-            <br>
-            <input type="text" id='messageInput'>
-            <br>
-            <button onclick="submitMessage()">Send</button>
-        </div>
-        
     </body>
 </html>

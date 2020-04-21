@@ -3,11 +3,10 @@ const { createCanvas, loadImage } = require('canvas');
 var SAMPLESIZE = 20;
 
 class Room{ 
-   constructor(id,category,data,isPrivate = false, joinCode = null) { 
+   constructor(id,category,data,isPrivate = false) { 
    	//this._io = io;
    	this._id = id;
       this._isPrivate = isPrivate;
-      this._joinCode = joinCode;
       this._category = category;
       this._data = data;
       this._playerLimit = 30;
@@ -35,8 +34,8 @@ class Room{
       });
       return (players.length>0)
    }
-   welcome(socket,username,round){
-      let player = new Player(socket,username,round);
+   welcome(socket,username,round,isGameMaster = false){
+      let player = new Player(socket,username,round,isGameMaster);
       this._players.push(player)
       console.log(`${username} joined room : ${this._id}`);
       
@@ -47,7 +46,7 @@ class Room{
          aPlayer.socket.emit('playerJoined',{playerUsername : username});
       }
 
-      //emit player info list to player
+      //emit players info to joining player
       var playerList = [];
       for(let aPlayer of this._players){
          let playerInfo = {username:aPlayer.username,points:aPlayer.points};
@@ -56,9 +55,9 @@ class Room{
       socket.emit('playerList',{playerList :playerList});
    
       //if first one to join
-      if(this._players.length===1){
+      if(this._players.length===1 && !this._isPrivate){
          this.startGame();
-      }else{
+      }else if(this._players.length>1 && !this._isPrivate){
          //emit current image to player
          socket.emit('imageUpdate',{image : this._pixelizedImage});
       }
@@ -70,7 +69,7 @@ class Room{
             console.log(`${player.object.username} left room : ${this._id}`);
             this._players.splice(player.index, 1);
             //if last one to leave
-            if(this._players.length===0){
+            if(this._players.length===0 && this._gameInProgress){
                this.endGame();
             }else {
                //broadcast to every player that a player just left 
@@ -78,8 +77,9 @@ class Room{
                   aPlayer.socket.emit('playerLeft',{playerUsername : player.object.username});
                }
             }
+            return true;
       }
-      //TODO : broadcast room players  
+      return false;
    }
 
    startGame(){
@@ -122,6 +122,7 @@ class Room{
          this._canvas = createCanvas(this._canvasWidth, computedCanvasHeight)
          //start timer
          this._timer = setInterval(this.render.bind(this), this._renderPeriod); //bind room object reference
+         
       })
    }
 
@@ -279,6 +280,14 @@ class Room{
       return null;
    }
 
+   isPlayerTheGameMaster(socketId){
+      let player = this.getPlayerBysocketId(socketId);
+      if(player!=null){
+         return player.object.isGameMaster;
+      }
+      return false;
+   }
+
    voteToSkip(socketId){
       var player = this.getPlayerBysocketId(socketId);
       if(!this._skipRequests.includes(player.object.username)){
@@ -332,7 +341,6 @@ class Room{
       }
       return roomInfo;
    }
-
 } 
 
 

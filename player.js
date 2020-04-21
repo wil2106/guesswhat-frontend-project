@@ -1,5 +1,5 @@
 class Player{ 
-    constructor(socket,username, round) { 
+    constructor(socket,username, round, isGameMaster = false) { 
        this._points = 0; 
        this._username = username;
        let r = getRandomValue(0,255);
@@ -8,6 +8,7 @@ class Player{
        this._color = `rgb(${r},${g},${b})`;
        this._joinedAtRound = round;
        this._socket = socket;
+       this._isGameMaster = isGameMaster;
     }
     get points(){
       return this._points;
@@ -31,6 +32,10 @@ class Player{
 
     get color(){
       return this._color;
+    }
+
+    get isGameMaster(){
+      return this._isGameMaster;
     }
 
  }

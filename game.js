@@ -5,21 +5,25 @@ const fs = require('fs');
 var game = {};
 const IDLENGTH = 8;
 var rooms = [];
+var clientsOnLobby = [];
 
 game.init = function (server) {
     // socket.io setup
     var io = require('socket.io').listen(server);
-
+    
     //load json in sync
     let rawdata = fs.readFileSync('data.json','utf8');
-    let data = JSON.parse(rawdata);
+    let jsonData = JSON.parse(rawdata);
 
     //create rooms
-    initRooms(data);
+    initRooms(jsonData);
     
     //io endpoints
     io.on('connection', function(socket){
         console.log(`a client connected : ${socket.handshake.address}`);
+
+        console.log(`client ${socket.handshake.address} joined lobby`);
+        clientsOnLobby.push(socket);
 
         socket.on('getRoomsByCategory', function(data){
             let roomsByCategory = rooms.filter( room => {
@@ -42,8 +46,12 @@ game.init = function (server) {
 
                 if(!room.isFull()){
                     if(!room.isUsernameAlreadyTaken(data.username)){
+                        
+                        console.log(`client ${socket.handshake.address} left lobby`);
+                        removeClientFromLobby(socket.id);
                         room.welcome(socket,data.username,room.round);
-
+                        broadcastRoomPlayersUpdate(room);
+                        
                         socket.emit('joinRoomResponse',{error : false, message: '', room: room.id});
                     }
                     else {
@@ -60,21 +68,56 @@ game.init = function (server) {
         });
 
         socket.on('leaveRoom', function(data){
+            
             let roomId = data.roomId;
             //get room
             let requestedRoomToLeave = rooms.filter( room => {
                 return (room.id === roomId);
             });
             if(requestedRoomToLeave.length>0){
-                requestedRoomToLeave[0].farewell(socket.id)
+                if(requestedRoomToLeave[0].farewell(socket.id))
+                    broadcastRoomPlayersUpdate(requestedRoomToLeave[0]);
+
             }
+            //if private room
+            if(requestedRoomToLeave[0].isPrivate && requestedRoomToLeave[0].players.length==0){
+                for(let i=0;i<rooms.length;i++){
+                    if(rooms[i].id == requestedRoomToLeave[0].id){
+                        console.log('Destroying private room '+requestedRoomToLeave[0].id);
+                        rooms.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            //put client socket in lobby
+            console.log(`client ${socket.handshake.address} joined lobby`);
+            clientsOnLobby.push(socket);
+            
         });
 
         socket.on('disconnect', function(){
-            console.log(`a user disconnected : ${socket.handshake.address}`);
+            //remove client socket of lobby if exists
+            console.log(`client ${socket.handshake.address} left lobby`);
+            removeClientFromLobby(socket.id);
+            //remove client socket from room where exists
             for(let room of rooms){
-                room.farewell(socket.id)
+                if(room.farewell(socket.id)){
+                    //if private room
+                    if(room.isPrivate && room.players.length==0){
+                        for(let i=0;i<rooms.length;i++){
+                            if(rooms[i].id == room.id){
+                                console.log('Destroying private room '+room.id);
+                                rooms.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }else
+                        broadcastRoomPlayersUpdate(room);
+                }
+                    
             }
+            console.log(`a client disconnected : ${socket.handshake.address}`);
         });
 
         socket.on('submitMessage', function(data){
@@ -94,6 +137,48 @@ game.init = function (server) {
                 requestedRoom[0].voteToSkip(socket.id);
             }
         });
+
+        socket.on('getPrivateRoomId', function(data){
+            let id;
+            do{
+                id = generateId(IDLENGTH);
+            }while(rooms.includes(id));
+            let message = {
+                roomId : id
+            }
+            socket.emit('privateRoomId',message);
+        });
+
+        socket.on('createPrivateRoom', function(data){
+            var room = new Room(data.roomId,data.category,jsonData,true)
+            console.log(`New private room created, id: ${room.id}, category: ${room.category}`);
+            rooms.push(room);
+            console.log(`client ${socket.handshake.address} left lobby`);
+            removeClientFromLobby(socket.id);
+            room.welcome(socket,data.username,room.round,true);//true for gamemaster
+            socket.emit('joinRoomResponse',{error : false, message: '', room: room.id});
+        });
+
+        socket.on('startPrivateGame', function(data){
+            let requestedRoomToStart = rooms.filter( room => {
+                return (room.id === data.roomId);
+            });
+            if(requestedRoomToStart.length>0){
+                if(requestedRoomToStart[0].isPlayerTheGameMaster(socket.id)){
+                    requestedRoomToStart[0].startGame();
+                }
+            }
+        });
+
+        socket.on('getCategories', function(data){
+            let categories = []
+            for (let [key, value] of Object.entries(CategoriesEnum)) {
+                categories.push(value);
+            }
+            socket.emit('categories',categories);
+        });
+
+
     }); 
 }
 
@@ -102,18 +187,18 @@ module.exports = game;
 
 
 
-function initRooms(data){
-    createRooms(5,CategoriesEnum.mangas,data);
-    createRooms(5,CategoriesEnum.games,data);
+function initRooms(jsonData){
+    createRooms(5,CategoriesEnum.mangas,jsonData);
+    createRooms(5,CategoriesEnum.games,jsonData);
 }
 
-function createRooms(number, category, data){
+function createRooms(number, category, jsonData){
     let id;
     for (let i = 0; i < number; i++) {       
         do{
             id = generateId(IDLENGTH);
         }while(rooms.includes(id));
-        var room = new Room(id,category,data)
+        var room = new Room(id,category,jsonData)
         console.log(`New room created, id: ${room.id}, category: ${room.category}`);
         rooms.push(room);
     }
@@ -130,5 +215,23 @@ function generateId(length) {
     return result;
  }
 
+
+function removeClientFromLobby(socketId) {
+    for (let i = 0; i < clientsOnLobby.length; i++) {
+       if(clientsOnLobby[i].id ===  socketId){ 
+          clientsOnLobby.splice(i, 1);
+          return;
+       }
+    }
+    return null;
+ }
+
+
+
+ function broadcastRoomPlayersUpdate(room){
+    for(let socket of clientsOnLobby){
+        socket.emit('roomPlayersUpdate',room.roomInfo);
+    }
+}
 
 
