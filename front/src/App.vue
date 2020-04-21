@@ -1,19 +1,26 @@
 <template>
-  <div class="container">
-    <HeaderBanner/>
-    <RoomContainer/>
+  <div class="page-container">
+    <md-app md-waterfall md-mode="fixed">
+    </md-app>
+    <md-toolbar>
+          <h3 class="md-title"> GUESSWHAT.io </h3>
+    </md-toolbar>
+    <md-app-content>
+      <router-view>
+      </router-view>
+    </md-app-content>
   </div>
 </template>
 
 <script>
-import HeaderBanner from './components/header'
-import RoomContainer from './components/roomContainer'
+//import HeaderBanner from './components/header'
+//import RoomContainer from './components/roomContainer'
 
 export default {
   name: 'App',
   components: {
-    HeaderBanner,
-    RoomContainer
+    //HeaderBanner,
+    //RoomContainer
   },
   sockets: {
     connect: function () {

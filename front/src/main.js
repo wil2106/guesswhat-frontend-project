@@ -6,6 +6,7 @@ import SocketIO from 'socket.io-client'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import router from './router'
 
 Vue.use(new VueSocketIO({
   debug: true,
@@ -22,5 +23,6 @@ Vue.config.productionTip = false
 
 new Vue({
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')
