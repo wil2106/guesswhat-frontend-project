@@ -36,7 +36,9 @@ https://www.figma.com/file/JZfd58OMaHcb03JukC3axp/guesswhat.io?node-id=0%3A1
 In root folder (to run server):
 * npm install
 * npm run server
+* go to http://localhost:8080/ to see test interface
 
 In front folder (to run vue app):
 * npm install
 * npm run serve
+* go to http://localhost:8081/  
