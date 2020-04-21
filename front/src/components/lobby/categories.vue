@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   name: "Categories",
   methods: {
@@ -30,11 +30,15 @@ export default {
       }
     }
   },
-  data: function() {
-        return {
-            list: ['All', 'Mangas', 'Games', 'Series', 'Sports', 'Films', 'Celebrities']
-        }
+  computed: {
+    ...mapGetters('categories', ['getCategories']),
+    list () {
+      return this.getCategories
     }
+  },
+  beforeMount () {
+    this.$socket.emit('getCategoeries')
+  }
 };
 </script>
 

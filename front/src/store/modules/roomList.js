@@ -1,9 +1,11 @@
 const state = {
-    roomList: []
+    roomList: [],
+    roomId: null,
 }
 
 const getters = {
-    getRoomList: state => state.roomList
+    getRoomList: state => state.roomList,
+    getRoomId: state => state.roomId
 }
 
 const mutations = {
@@ -11,6 +13,11 @@ const mutations = {
         data
     }) {
         state.roomList = [].concat(data)
+    },
+    updateRoomId(state, {
+        data
+    }) {
+        state.roomId = data
     }
 }
 
@@ -20,7 +27,11 @@ const actions = {
             data: data.rooms
         })
     },
-
+    async SOCKET_privateRoomId(state, data) {
+        state.commit('updateRoomId', {
+            data: data.message
+        })
+    }
 }
 
 export default {

@@ -10,7 +10,7 @@
       </md-field>
       <div class="output md-layout-item">
         <p>Generated Code</p>
-        <p> DEFAULT CODE </p>
+        <p> {{code}} </p>
       </div>
       <md-dialog-actions class="actions md-layout-item">
         <md-button class="md-primary" @click="showDialog = false">Close</md-button>
@@ -22,17 +22,38 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: "newRoom",
   data: () => ({
     showDialog: false,
     code: 'default',
     category: null,
-    list: ["All", "Mangas", "Games", "Series", "Sports", "Films", "Celebrities"]
+    code: 'DEFAULT'
   }),
+  computed: {
+    ...mapGetters('categories', ['getCategories']),
+    list () {
+      return this.getCategories
+    }
+  },
   methods: {
-    onClickCreate() {
-
+    ...mapGetters('user', ['getUser']),
+    ...mapGetters('roomList', ['getRoomIid']),
+    ...mapMutations('user', ['updateUserName']),
+    async onClickCreate() {
+      if(!this.getUser()){
+        let user = prompt('Please enter username: ')
+        this.updateUserName(user)
+      }
+      await this.$socket.emit('getPrivateRoomId')
+      await this.$socket.emit('createPrivateRoom', {
+        message: {
+          category: this.category,
+          roomId: this.getRoomIid,
+          username: this.getUser
+        }
+      })
     }
   }
 };
