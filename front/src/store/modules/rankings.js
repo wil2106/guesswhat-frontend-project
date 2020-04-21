@@ -14,11 +14,6 @@ const mutations = {
     update(state, { data }) {
         state.rankedPlayers = [].concat(data)
     }
-    /*
-    addPlayer (state, {}) {
-
-    }
-    */
 }
 
 const actions = {

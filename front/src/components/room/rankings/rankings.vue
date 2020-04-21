@@ -3,7 +3,7 @@
       <span class="header-category"> Ranked Players : </span>
       <md-list class="full ul-background">
           <md-list-item v-for="(item, index) in rankedPlayers" :key="index" class="fragment">
-              <Card :name="index" :rank="item.rank" :username="item.username" :nbPoints="item.nbPoints"/>
+              <CardRK :rank="item.rank" :username="item.username" :nbPoints="item.nbPoints"/>
           </md-list-item>
       </md-list>
   </div>

@@ -28,8 +28,7 @@ export default {
   data: () => ({
     showDialog: false,
     code: 'default',
-    category: null,
-    code: 'DEFAULT'
+    category: null
   }),
   computed: {
     ...mapGetters('categories', ['getCategories']),
@@ -39,7 +38,7 @@ export default {
   },
   methods: {
     ...mapGetters('user', ['getUser']),
-    ...mapGetters('roomList', ['getRoomIid']),
+    ...mapGetters('roomList', ['getRoomId']),
     ...mapMutations('user', ['updateUserName']),
     async onClickCreate() {
       if(!this.getUser()){
@@ -50,7 +49,7 @@ export default {
       await this.$socket.emit('createPrivateRoom', {
         message: {
           category: this.category,
-          roomId: this.getRoomIid,
+          roomId: this.getRoomId,
           username: this.getUser
         }
       })

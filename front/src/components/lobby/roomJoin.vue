@@ -26,7 +26,7 @@ export default {
     onClickJoin() {
       this.$socket.emit('startPrivateGame', {
         message: {
-          roomId: code
+          roomId: this.code
         }
       })
     }
