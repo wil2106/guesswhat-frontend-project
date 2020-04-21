@@ -9,18 +9,18 @@
     <body>
         <!-- ROW HTML-->
         <h1>Hi welcome to guesswhat api tester</h1>
-        <button onclick="getCategories()">getCategories (look in logs)</button> 
+        <button onclick="getCategories()">getCategories (look in logs)</button>
         <hr>
         <b>Create private room</b><br>
         <label for="categoriesSelect">Category:</label>
         <select class="categoriesSelect" id="privateRoomCategoriesSelect"></select>
-        <button onclick="getPrivateRoomId()">getPrivateRoomId</button>  
+        <button onclick="getPrivateRoomId()">getPrivateRoomId</button>
         <input readonly type="text" id="privateRoomId">
-        <button onclick="createPrivateRoom()">createPrivateRoom</button>  
+        <button onclick="createPrivateRoom()">createPrivateRoom</button>
         <hr>
         <b>Join private room</b><br>
         <input type="text" id="privateRoomIdToJoin">
-        <button onclick="joinPrivateRoom()">joinPrivateRoom</button>    
+        <button onclick="joinPrivateRoom()">joinPrivateRoom</button>
         <hr>
         <b>Join public room</b><br>
         <label for="categoriesSelect">Category:</label>
@@ -35,23 +35,49 @@
         <hr>
         <br>
         <br>
-        <div id="room" style='border-style:solid;display:none'>
-            <p id='roomTitle'>Room : none</p>
+        <div id="room" style='border-style:solid;display:none; padding:10px'>
+            <p style="text-align: center;" id='roomTitle'>Room : none</p>
             <br>
             <br>
-            <button onclick="leaveRoom()">leaveRoom</button>
-            <button onclick="startPrivateGame()">startPrivateGame</button>
-            <br>
-            <img src="" alt="Loading..." id='image'><textarea rows=5 readonly id='playerList'></textarea>
-            <br>
-            <button onclick="voteToSkip()" id="skipButton">voteToSkip</button>
-            <br>
-            <br>
-            <div rows=8 readonly id='chat' style="height:100px;max-height:100px;border:solid;overflow-y: scroll;"></div>
-            <br>
-            <input type="text" id='messageInput'>
-            <br>
-            <button onclick="submitMessage()">Send</button>
+            <div style="display:inline;
+            text-align:center; ">
+
+            <div style="display: inline-block;
+            vertical-align: top;
+            border: 2px solid black;
+            position: relative; height:400px; width:60%; margin-left: 10px; margin-bottom: 10px;">
+                <img style="position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto; max-height: 350px; max-width: 400px;" src="" alt="Loading..." id='image'>
+            </div>
+            <div style="float:left; height:400px; width:17.5%;
+            margin-left: 10px; margin-right: 10px; margin-bottom: 20px;">
+                <div style="margin-top: 10px;">
+                    <button onclick="leaveRoom()">Leave Room</button>
+                </div>
+                <div style="margin-top: 10px; height:300px;
+                border:2px solid black;overflow-y: scroll;"
+                readonly id='playerList'></div>
+                <div style="margin-top: 10px;">
+                    <button onclick="startPrivateGame()">startPrivateGame</button>
+                    <button onclick="voteToSkip()" id="skipButton">Skip</button>
+                </div>
+
+            </div>
+            <div style="float:right; height:400px; width:17.5%;
+            margin-left: 10px; margin-right: 10px; margin-bottom: 20px;">
+                <div rows=8 readonly id='chat'
+                style="height:350px; border:2px solid black;overflow-y: scroll;">
+                </div>
+                <div style="margin-top:15px; ">
+                    <input type="text" id='messageInput'>
+                    <button onclick="submitMessage()">Send</button>
+                </div>
+            </div>
+        </div>
         </div>
 
         <!-- JAVASCRIPT -->
@@ -61,7 +87,7 @@
             var roomId;
             //categories initialization
             var selects = document.getElementsByClassName('categoriesSelect');
-            Object.entries(selects).map((select) => { 
+            Object.entries(selects).map((select) => {
                 for(var category of Object.values(CategoriesEnum)){
                     var item = document.createElement('option');
                     item.value = category;
@@ -69,8 +95,8 @@
                     select[1].appendChild(item);
                 }
             });
-            
-            
+
+
             //Events------------------------------------------------------------------------
 
 	    	socket.on('connect', function(){
@@ -98,15 +124,15 @@
                     item.innerHTML = `id: ${room.id} | players : ${room.nbPlayers}/${room.playerLimit} | category: ${room.category}`
                     list.appendChild(item);
                 }
-                
+
             });
 
-                        
-            socket.on('imageUpdate', function(data){             
+
+            socket.on('imageUpdate', function(data){
                 document.getElementById("image").src = data.image;
             });
 
-            socket.on('message', function(data){        
+            socket.on('message', function(data){
                 var messageDiv = document.createElement("div");
                 messageDiv.innerHTML = data.message.playerUsername +" : "+data.message.text;
                 messageDiv.setAttribute("style","width:auto");
@@ -114,69 +140,69 @@
                     messageDiv.style.backgroundColor = 'green';
 
                 var chat = document.getElementById("chat");
-                chat.appendChild(messageDiv); 
+                chat.appendChild(messageDiv);
                 chat.scrollTop = chat.scrollHeight;
             });
 
-            socket.on('pointUpdate', function(data){        
-                document.getElementById("playerList").innerHTML += JSON.stringify(data);      
+            socket.on('pointUpdate', function(data){
+                document.getElementById("playerList").innerHTML += JSON.stringify(data);
             });
 
-            socket.on('playerJoined', function(data){        
+            socket.on('playerJoined', function(data){
                 var messageDiv = document.createElement("div");
                 messageDiv.innerHTML = data.playerUsername +" joined the game";
                 messageDiv.setAttribute("style","font-style:italic;");
                 var chat = document.getElementById("chat");
-                chat.appendChild(messageDiv); 
+                chat.appendChild(messageDiv);
                 chat.scrollTop = chat.scrollHeight;
             });
 
-            socket.on('playerLeft', function(data){        
+            socket.on('playerLeft', function(data){
                 var messageDiv = document.createElement("div");
                 messageDiv.innerHTML = data.playerUsername +" left the game";
                 messageDiv.setAttribute("style","font-style:italic;");
                 var chat = document.getElementById("chat");
-                chat.appendChild(messageDiv); 
+                chat.appendChild(messageDiv);
                 chat.scrollTop = chat.scrollHeight;
             });
 
-            socket.on('playerList', function(data){        
+            socket.on('playerList', function(data){
                 document.getElementById("playerList").innerHTML = JSON.stringify(data);
             });
 
-            socket.on('playerVotedToSkip', function(data){        
+            socket.on('playerVotedToSkip', function(data){
                 var messageDiv = document.createElement("div");
                 messageDiv.innerHTML = data.username + " voted to skip ("+data.skipCount+"/"+data.playerCount+")";
                 messageDiv.setAttribute("style","font-style:italic;");
                 var chat = document.getElementById("chat");
-                chat.appendChild(messageDiv); 
+                chat.appendChild(messageDiv);
                 chat.scrollTop = chat.scrollHeight;
             });
 
-            socket.on('newRoundStarting', function(){        
+            socket.on('newRoundStarting', function(){
                 var messageDiv = document.createElement("div");
                 messageDiv.innerHTML = "New round starting";
                 messageDiv.setAttribute("style","font-style:italic;");
                 var chat = document.getElementById("chat");
-                chat.appendChild(messageDiv); 
+                chat.appendChild(messageDiv);
                 chat.scrollTop = chat.scrollHeight;
                 document.getElementById("skipButton").disabled = false;
             });
 
-            socket.on('roomPlayersUpdate', function(data){        
-                document.getElementById("roomPlayersUpdates").innerHTML += JSON.stringify(data); 
+            socket.on('roomPlayersUpdate', function(data){
+                document.getElementById("roomPlayersUpdates").innerHTML += JSON.stringify(data);
             });
 
-            socket.on('privateRoomId', function(data){      
-                document.getElementById("privateRoomId").value = data.roomId; 
+            socket.on('privateRoomId', function(data){
+                document.getElementById("privateRoomId").value = data.roomId;
             });
 
-            socket.on('categories', function(data){      
+            socket.on('categories', function(data){
                 console.log(data)
             });
 
             //Actions------------------------------------------------------------------------
-            
+
             function getRoomsByCategory(){
                 var e = document.getElementById("publicRoomCategoriesSelect");
                 var selectedCategory = e.options[e.selectedIndex].text;
@@ -197,7 +223,7 @@
                     }
                 }
             }
-            
+
             function leaveRoom(){
                 document.getElementById("image").src = '';
                 document.getElementById('roomTitle').innerHTML = 'Room : none';
@@ -238,7 +264,7 @@
                 if (username.trim().length>0) {
                     let message = {
                         category : selectedCategory,
-                        roomId : roomId, 
+                        roomId : roomId,
                         username : username
                     }
                     socket.emit('createPrivateRoom',message);

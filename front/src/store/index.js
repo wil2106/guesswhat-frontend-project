@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import roomList from './modules/roomList'
 import categories from './modules/categories'
+import rankings from './modules/rankings'
 
 Vue.use(Vuex)
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     getters: {},
     modules: {
         roomList: roomList,
-        categories: categories
+        categories: categories,
+        rankings: rankings
     }
 })
