@@ -13,8 +13,12 @@ const getters = {
 const mutations = {
     update(state, { data }) {
         state.rankedPlayers = [].concat(data)
-    },
-    addPlayer (state, {})
+    }
+    /*
+    addPlayer (state, {}) {
+
+    }
+    */
 }
 
 const actions = {
@@ -22,8 +26,7 @@ const actions = {
         state.commit('update', {
             data: data.players
         })
-    },
-
+    }
 }
 
 export default {
