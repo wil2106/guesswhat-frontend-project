@@ -11,14 +11,16 @@ const getters = {
 }
 
 const mutations = {
-    update(state, { data }) {
+    update(state, { data })
+    {
         state.rankedPlayers = [].concat(data)
     }
 }
 
 const actions = {
     async SOCKET_rankedPlayersByRoom(state, data) {
-        state.commit('update', {
+        state.commit('update',
+        {
             data: data.players
         })
     }

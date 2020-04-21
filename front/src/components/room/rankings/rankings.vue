@@ -9,6 +9,7 @@
   </div>
 </template>
 
+
 <script>
 import { mapGetters } from 'vuex'
 import CardRK from './card_rankings'
