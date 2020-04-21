@@ -36,6 +36,7 @@ https://www.figma.com/file/JZfd58OMaHcb03JukC3axp/guesswhat.io?node-id=0%3A1
 In root folder (to run server):
 * npm install
 * npm run server
+
 In front folder (to run vue app):
 * npm install
 * npm run serve
