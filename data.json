@@ -1,41 +1,373 @@
 {
     "Mangas":[
         {
-            "link":"https://cdn-media.rtl.fr/online/image/2020/0130/7799989264_one-piece-arrive-sur-netflix-en-live-action.jpg",
-            "secretWords":["one piece","onepiece"]
+            "link":"https://media.senscritique.com/media/000006491241/source_big/Gurren_Lagann.jpg",
+            "secretWords":["gurren lagann"]
+         },
+        {
+            "link":"https://adala-news.fr/wp-content/uploads/2018/01/Youjo-Senki-illustration-anime.jpg",
+            "secretWords":["youjo senki", "saga of tanya the evil"]
+         },
+        {
+            "link":" https://vignette.wikia.nocookie.net/kingdom-anime/images/e/e4/07.jpg",
+            "secretWords":["kingdom"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/10/75195l.jpg",
+            "secretWords":["ao no exorcist", "blue exorcist"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/1534/104784l.jpg",
+            "secretWords":["plunderer"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/11/59611l.jpg",
+            "secretWords":["akame ga kill"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/10/22062l.jpg",
+            "secretWords":["angel beats"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/4/75509l.jpg",
+            "secretWords":["another"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/12/64043l.jpg",
+            "secretWords":["assassination classroom", "ansatsu kyoushitsu"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/60027l.jpg",
+            "secretWords":["black bullet"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/2/19747l.jpg",
+            "secretWords":["bleach"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/11/76932l.jpg",
+            "secretWords":["erased", "bokumachi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/3/18882l.jpg",
+            "secretWords":["clannad"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/6/43639l.jpg",
+            "secretWords":["code geass"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1538/95686l.jpg",
+            "secretWords":["dagashi kashi", "dagashikashi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1614/90408l.jpg",
+            "secretWords":["darling in the franxx", "ditf"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1562/106002l.jpg",
+            "secretWords":["darker than black", "dtb"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/10/86523l.jpg",
+            "secretWords":["dies irae"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1285/102446l.jpg",
+            "secretWords":["dr stone", "dr. stone"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/2/70187l.jpg",
+            "secretWords":["danmachi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/10/71772l.jpg",
+            "secretWords":["durarara", "durarara!!"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1092/91290l.jpg",
+            "secretWords":["dragon ball super", "dbs"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/9/86573l.jpg",
+            "secretWords":["fate/apocrypha"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1899/105108l.jpg",
+            "secretWords":["fate/grand order babylonia", "fgo babylonia"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/30327l.jpg",
+            "secretWords":["fate/stay night", "fsn"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/5/87106l.jpg",
+            "secretWords":["fate/stay night heaven's feel", "heaven's feel"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/12/67333l.jpg",
+            "secretWords":["fate/stay night unlimited blade works", "fate/stay night ubw",
+                "unlimited blade works"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/6/76522l.jpg",
+            "secretWords":["fate/zero"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1208/94745l.jpg",
+            "secretWords":["fullmetal alchemist", "fma"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1798/91548l.jpg",
+            "secretWords":["school-live!", "gakkougurashi", "gakkou gurashi", "gakkou gurashi!"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1294/90667l.jpg",
+            "secretWords":["goblin slayer"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/8/33713l.jpg",
+            "secretWords":["guilty crown"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/3/50177l.jpg",
+            "secretWords":["the devil is a part-timer!", "hataraku maou-sama!", "hataraku maou-sama"]
+         },
+         {
+            "link":" https://cdn.myanimelist.net/images/anime/1270/95221l.jpg",
+            "secretWords":["cells at work!", "hataraku saibou!", "hataraku saibou"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1965/99667l.jpg",
+            "secretWords":["isekai quartet"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1438/105344l.jpg",
+            "secretWords":["bofuri"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1206/93944l.jpg",
+            "secretWords":["kaguya-sama love is war", "kaguya-sama wa kokurasetai"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/10/86577l.jpgg",
+            "secretWords":["kakegurui"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/73954l.jpg",
+            "secretWords":["kantai collection", "kancolle"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1466/99748l.jpg",
+            "secretWords":["demon slayer", "kimetsu no yaiba"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/7/87281l.jpg",
+            "secretWords":["kimi no nawa", "your name"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/6/79634l.jpg",
+            "secretWords":["a silent voice", "koe no katachi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/8/77831l.jpg",
+            "secretWords":["konosuba"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/12/79164l.jpg",
+            "secretWords":["kabaneri of the iron forteress", "koutetsujou no kabaneri"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/68299l.jpg",
+            "secretWords":["kuroko no basket", "knb", "kuroko's basketball"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/7/82074l.jpg",
+            "secretWords":["black butler", "kuroshitsuji"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1002/101302l.jpg",
+            "secretWords":["kyouko suiri", "in/spectre"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/13/55413l.jpg",
+            "secretWords":["the irregular at magic high school", "mahouka koukou no rettousei",
+            "mknr"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/13/33465l.jpg",
+            "secretWords":["mirai nikki", "future diary"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/5/79183l.jpg",
+            "secretWords":["mob psycho 100"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1042/91724l.jpg",
+            "secretWords":["overlord", "overlord ii", "overlord series"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/2/41995l.jpg",
+            "secretWords":["psycho-pass"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1958/93440l.jpg",
+            "secretWords":["angels of death", "satsuriku no tenshi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1627/92098l.jpg",
+            "secretWords":["shingeki no kyojin", "snk", "attack on titan", "aot"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1439/90617l.jpg",
+            "secretWords":["violet evergarden"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/7/80832l.jpg",
+            "secretWords":["rezero", "re:zero"]
+         },
+        {
+           "link":"https://cdn.myanimelist.net/images/anime/1187/100251l.jpg",
+           "secretWords":["to aru majutsu no index", "toaru majutsu no index", "a certain magical index", "toaru",
+        "toaru index series"]
         },
         {
-            "link":"https://www.journaldugeek.com/content/uploads/2019/12/capture-decran-2019-12-20-a-11-32-14-640x342.png",
-            "secretWords":["dragon ball","dragon ball z","dragonball"]
+            "link":"https://cdn.myanimelist.net/images/anime/13/17275l.jpg",
+            "secretWords":["to aru kagaku no railgun", "toaru kagaku no railgun", "a certain scientist railgun",
+            "toaru railgun series"]
         },
         {
-            "link":"https://media.senscritique.com/media/000017947429/source_big/Death_Note.jpg",
-            "secretWords":["death note","deathnote"]
+            "link":"https://cdn.myanimelist.net/images/anime/12/74043l.jpg",
+            "secretWords":["one piece"]
         },
         {
-            "link":"https://www.serieously.com/wp-content/uploads/2020/03/Naruto.jpg",
-            "secretWords":["naruto"]
+            "link":"https://cdn.myanimelist.net/images/anime/1220/92358l.jpg",
+            "secretWords":["dragon ball z","dbz"]
         },
         {
-            "link":"https://image.animedigitalnetwork.fr/license/mha/tv4/web/affiche_370x0.jpg",
-            "secretWords":["my hero academia","mha"]
+            "link":"https://cdn.myanimelist.net/images/anime/9/9453l.jpg",
+            "secretWords":["death note"]
         },
         {
-            "link":"https://fr.web.img2.acsta.net/r_640_360/newsv7/19/04/10/17/03/0985597.jpg",
-            "secretWords":["one punch man"]
-        }
+            "link":"https://cdn.myanimelist.net/images/anime/4/80792l.jpg",
+            "secretWords":["naruto shippuden"]
+        },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/1897/106166l.jpg",
+            "secretWords":["my hero academia", "mha", "boku no hero academia", "bnha"]
+        },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/1797/93459l.jpg",
+            "secretWords":["one punch man", "one-punch man", "opm"]
+        },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/7/73852l.jpg",
+            "secretWords":["god eater"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1167/96846l.jpg",
+            "secretWords":["steins;gate"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1375/93521l.jpg",
+            "secretWords":["steins;gate zero", "steins;gate 0"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1890/95931l.jpg",
+            "secretWords":["devil may cry", "dmc"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/3/60551l.jpg",
+            "secretWords":["fairy tail"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1784/93429l.jpg ",
+            "secretWords":["hanebado", "hanebado!"]
+         },
+         {
+            "link":" https://cdn.myanimelist.net/images/anime/8/79353l.jpg",
+            "secretWords":["food wars!","shokugeki no souma"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/13/88337l.jpg",
+            "secretWords":["nanatsu no taizai", "seven deadly sins"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/3/73178l.jpg",
+            "secretWords":["kiseijuu", "parasyte"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/8/75514l.jpg",
+            "secretWords":["kill la kill", "klk"]
+         }
     ],
     "Games":[
         {
-            "link":"https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg",
+            "link":"https://cdn.myanimelist.net/images/anime/1098/106869l.jpg",
+            "secretWords":["azur lane"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/2/54683l.jpg",
+            "secretWords":["danganronpa"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/9/49413l.jpg",
+            "secretWords":["corpse party"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/7/69901l.jpg",
+            "secretWords":["grisaia no kajitsu", "the fruit of kajitsu"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/12/54331l.jpg",
+            "secretWords":["black rock shooter", "brs"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/6/44590l.jpg",
+            "secretWords":["devil survivor 2"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/1167/96846l.jpg",
+            "secretWords":["steins;gate"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/7/73852l.jpg",
+            "secretWords":["god eater"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1375/93521l.jpg",
+            "secretWords":["steins;gate zero", "steins;gate 0"]
+         },
+        {
+            "link":"https://cdn.myanimelist.net/images/anime/10/22062l.jpg",
+            "secretWords":["angel beats"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/1958/93440l.jpg",
+            "secretWords":["angels of death", "satsuriku no tenshi"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/30327l.jpg",
+            "secretWords":["fate/stay night", "fsn"]
+         },
+         {
+            "link":"https://static.tvtropes.org/pmwiki/pub/images/rsz_dies_irae.png",
+            "secretWords":["dies irae"]
+         },
+         {
+            "link":"https://cdn.myanimelist.net/images/anime/4/73954l.jpg",
+            "secretWords":["kantai collection", "kancolle"]
+         },
+        {
+            "link":"https://cdn.wallpapersafari.com/91/62/f5S40T.jpg",
             "secretWords":["league of legends","lol"]
         },
         {
-            "link":"https://cdn.pixabay.com/photo/2016/07/30/20/39/mario-1557973_960_720.jpg",
-            "secretWords":["mario","super mario"]
+            "link":"https://prodigits.co.uk/thumbs/wallpapers/p2/games/20/e680b9d212453669.jpg",
+            "secretWords":["super smash bros ultimate","super smash bros"]
         },
         {
-            "link":"https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2019/06/halo-3-wallpaper-e1570444280692.jpg",
+            "link":"https://i.pinimg.com/originals/15/93/d9/1593d9c07fffe5a96e3c178de52d925a.jpg",
             "secretWords":["halo","master chief"]
         },
         {
@@ -43,7 +375,7 @@
             "secretWords":["pacman","pac-man","pac man"]
         },
         {
-            "link":"https://otakugame.fr/wp-content/uploads/2019/10/fortnite-chapitre-2-quels-sont-l.jpg",
+            "link":"https://wallpapercave.com/wp/wp3149423.jpg",
             "secretWords":["fortnite"]
         },
         {
@@ -55,17 +387,10 @@
             "secretWords":["rocket league"]
         },
         {
-            "link":"https://cdn03.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_Minecraft.jpg",
+            "link":"https://i.pinimg.com/236x/ef/4f/c9/ef4fc9bb9f64fa22c6cffbbf13684def.jpg",
             "secretWords":["minecraft"]
         },
-        {
-            "link":"https://i.jeuxactus.com/datas/jeux/c/o/counter-strike-global-offensive/xl/counter-strike-global-o-5d09f1dfbba6a.jpg",
-            "secretWords":["counter strike","cs"]
-        },
-        {
-            "link":"https://i.jeuxactus.com/datas/jeux/c/o/counter-strike-global-offensive/xl/counter-strike-global-o-5d09f1dfbba6a.jpg",
-            "secretWords":["counter strike","cs"]
-        },
+
         {
             "link":"https://cdn03.nintendo-europe.com/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_overwatch/Overwatch_screenshot_05.jpg",
             "secretWords":["overwatch"]
@@ -77,19 +402,88 @@
         {
             "link":"https://cdn.mos.cms.futurecdn.net/9A6pnMzyQtsLdPaXAFwabR.jpg",
             "secretWords":["hearthstone","hs"]
+        },
+        {
+            "link":"https://s1.1zoom.me/b5153/117/Mass_Effect_3_Shepard_Men_Pistols_Armor_516373_1080x1920.jpg",
+            "secretWords":["mass effect","mass effect 3"]
+        },
+       {
+            "link":"https://downloadwap.com/thumbs2/wallpapers/p2ls/2019/games/45/e2e7603513515677.jpg",
+            "secretWords":["hitman absolution"]
+        },
+        {
+            "link":"https://i2.wp.com/www.playscope.com/wp-content/uploads/2018/03/blazbluecrosstagbattle_images_0008.jpg",
+            "secretWords":["blazblue cross tag battle", "bbctb"]
+        },
+        {
+            "link":"https://images-na.ssl-images-amazon.com/images/I/81fwz00crAL.jpg",
+            "secretWords":["phoenix wright: ace attorney 5", "PWAA5", "phoenix wright: dual destinies",
+            "phoenix wright: ace attorney 5", "phoenix wright dual destinies", "gyakuten saiban 5", "ace attorney 5"]
+        },
+        {
+            "link":"https://uploadstatic-sea.mihoyo.com/contentweb/20191225/2019122520025099213.png",
+            "secretWords":["honkai impact 3", "honkai impact 3rd", "hi3"]
+        },
+        {
+            "link":"https://sunlight-project.com/wp-content/uploads/2017/12/Fate-Grand-Order-Arcade-01.jpg",
+            "secretWords":["fate/grand order", "fgo"]
+        },
+        {
+            "link":"https://www.konami.com/products_master/eu_publish/mgsv_tde/eu/fr/images/mgsvtdemain.jpg",
+            "secretWords":["metal gear solid v", "metal gear solid 5", "mgs5", "mgsv"]
+        },
+        {
+            "link":"https://www.metalgearinformer.com/wp-content/uploads/2016/09/MGS-Snake-Eater-Pachislot-Wallpaper-Smartphone-2.jpg",
+            "secretWords":["metal gear solid 3", "metal gear solid: snake eater", "mgs: snake eater", "mgs3"]
+
+        },
+        {
+            "link":"https://i.pinimg.com/originals/d3/e6/a9/d3e6a91c164d656b044e1054df92282e.jpg",
+            "secretWords":["assassin's creed 3", "ac3"]
+        },
+        {
+            "link":"https://i.pinimg.com/originals/52/6f/be/526fbe16f441fddbeae3f1489e63e887.jpg",
+            "secretWords":["assassin's creed origins"]
+        },
+        {
+            "link":"https://skidrowlatino.com/wp-content/uploads/2020/04/Descargar-Resident-Evil-3-skidrow-latino.jpg",
+            "secretWords":["resident evil 3", "re3"]
+        },
+        {
+            "link":"https://i.pinimg.com/originals/fa/87/68/fa8768a4e30a22ffc9330b41b9bff076.jpg",
+            "secretWords":["dark souls 3", "dark souls iii", "dark souls"]
+        },
+        {
+            "link":"https://www.next-stage.fr/wp-content/uploads/2020/01/final-fantasy-vii-remake-red-xii.jpg",
+            "secretWords":["final fantasy vii remake", "final fantasy 7 remake", "ff7r"]
+        },
+        {
+            "link":"https://www.dokkan-battle.fr/wp-content/uploads/2017/01/vsdv.jpg",
+            "secretWords":["dokkan battle", "dbz dokkan battle"]
+        },
+        {
+            "link":"https://i.ytimg.com/vi/DIKG-_ZpXww/maxresdefault.jpg",
+            "secretWords":["crossing void", "dengenki bunko: crossing void"]
+        },
+        {
+            "link":"https://cdn-prod.scalefast.com/public/assets/user/122595/image/a26c3431fb2f4d512da80b57172d479d.jpg",
+            "secretWords":["sword art online alicization lycoris", "sao alicization lycoris"]
+        },
+        {
+            "link":"https://s2.gaming-cdn.com/images/products/2329/orig/sword-art-online-hollow-realization-deluxe-edition-cover.jpg",
+            "secretWords":["sword art online hollow realization", "sao hollow realization"]
         }
     ],
     "Series":[
-        
+
     ],
     "Films":[
-        
+
     ],
     "Sports":[
-        
+
     ],
     "Celebrities":[
-        
+
     ]
 }
-  
