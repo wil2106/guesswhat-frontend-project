@@ -18,10 +18,6 @@
 
 export default {
   name: 'App',
-  components: {
-    //HeaderBanner,
-    //RoomContainer
-  },
   sockets: {
     connect: function () {
       console.log('socket connected')

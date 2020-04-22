@@ -27,8 +27,7 @@ const routes = [
   {
     path: '/',
     name: 'Lobby',
-    component: Lobby,
-    beforeEnter
+    component: Lobby
   },
   {
     path: '/room/:id',

@@ -77,18 +77,18 @@ game.init = function (server) {
             if(requestedRoomToLeave.length>0){
                 if(requestedRoomToLeave[0].farewell(socket.id))
                     broadcastRoomPlayersUpdate(requestedRoomToLeave[0]);
-
-            }
-            //if private room
-            if(requestedRoomToLeave[0].isPrivate && requestedRoomToLeave[0].players.length==0){
-                for(let i=0;i<rooms.length;i++){
-                    if(rooms[i].id == requestedRoomToLeave[0].id){
-                        console.log('Destroying private room '+requestedRoomToLeave[0].id);
-                        rooms.splice(i, 1);
-                        break;
+                //if private room
+                if(requestedRoomToLeave[0].isPrivate && requestedRoomToLeave[0].players.length==0){
+                    for(let i=0;i<rooms.length;i++){
+                        if(rooms[i].id == requestedRoomToLeave[0].id){
+                            console.log('Destroying private room '+requestedRoomToLeave[0].id);
+                            rooms.splice(i, 1);
+                            break;
+                        }
                     }
                 }
             }
+            
 
             //put client socket in lobby
             console.log(`client ${socket.handshake.address} joined lobby`);
@@ -189,7 +189,7 @@ module.exports = game;
 
 function initRooms(jsonData){
     createRooms(5,CategoriesEnum.mangas,jsonData);
-    createRooms(5,CategoriesEnum.games,jsonData);
+    createRooms(3,CategoriesEnum.games,jsonData);
 }
 
 function createRooms(number, category, jsonData){

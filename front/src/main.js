@@ -22,7 +22,7 @@ Vue.use(VueMaterial)
 Vue.config.productionTip = false
 
 new Vue({
-  store,
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

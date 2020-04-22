@@ -9,7 +9,7 @@ class Room{
       this._isPrivate = isPrivate;
       this._category = category;
       this._data = data;
-      this._playerLimit = 30;
+      this._playerLimit = 5;
       this._pixelisedImage = null;
       this._rawImage = null;
       this._canvas = null;
@@ -43,7 +43,7 @@ class Room{
       for(let aPlayer of this._players){
          if(aPlayer.username === username)
             continue;
-         aPlayer.socket.emit('playerJoined',{playerUsername : username});
+         aPlayer.socket.emit('playerJoined',{joined: true,playerUsername : username});
       }
 
       //emit players info to joining player
@@ -57,7 +57,7 @@ class Room{
       //if first one to join
       if(this._players.length===1 && !this._isPrivate){
          this.startGame();
-      }else if(this._players.length>1 && !this._isPrivate){
+      }else if(this._players.length>1){
          //emit current image to player
          socket.emit('imageUpdate',{image : this._pixelizedImage});
       }
@@ -74,7 +74,7 @@ class Room{
             }else {
                //broadcast to every player that a player just left 
                for(let aPlayer of this._players){
-                  aPlayer.socket.emit('playerLeft',{playerUsername : player.object.username});
+                  aPlayer.socket.emit('playerLeft',{joined: false, playerUsername : player.object.username});
                }
             }
             return true;

@@ -8,7 +8,7 @@
             <NewRoom class="md-layout-item"/>
             <JoinRoom class="md-layout-item"/>
         </div>
-        <List />
+        <List/>
       </div>
   </div>
 </template>
