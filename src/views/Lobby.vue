@@ -15,6 +15,7 @@
     <v-row no-gutters>
         <v-col :md="2">
             <Categories/>
+            <CreateRoom/>
         </v-col>
         <v-col :md="10">
             <RoomList/>
@@ -26,10 +27,11 @@
 <script>
 import Categories from '../components/lobby/Categories'
 import RoomList from '../components/lobby/RoomList'
+import CreateRoom from '../components/lobby/newRoom'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Lobby',
-  components: { Categories, RoomList },
+  components: { Categories, RoomList, CreateRoom },
   computed: {
     ...mapGetters('categories', ['getSelectedCategory']),
     category () {

@@ -13,10 +13,8 @@ const mutations = {
   updateRoomList(state, data) {
     state.roomList = data.rooms
   },
-  updateRoomId(state, {
-    data
-  }) {
-    state.roomId = data
+  updateRoomId(state, data) {
+    state.roomId = data.roomId
   },
   updatePlayerList(state, data) {
     for (let i = 0; i < state.roomList.length; i++) {
