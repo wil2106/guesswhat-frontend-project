@@ -9,6 +9,9 @@ const getters = {
 const mutations = {
   updateNbOfVoters (state, data) {
     state.nbOfVoters = data
+  },
+  resetNbOfVoters (state, data) {
+    state.nbOfVoters = null
   }
 }
 

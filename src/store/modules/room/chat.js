@@ -1,20 +1,29 @@
 const state = {
-  message: null
+  messages: []
 }
 
 const getters = {
-  getMessage: state => state.message
+  getMessages: state => state.messages
 }
 
 const mutations = {
-  updateMessage (state, data) {
-    state.message = data
+  addMessage (state, data) {
+    state.messages.push(data)
+  },
+  clearMessages () {
+    state.messages = []
   }
 }
 
 const actions = {
   async SOCKET_message (state, data) {
-    state.commit('updateMessage', data)
+    state.commit('addMessage', data)
+  },
+  async SOCKET_playerJoined (state, data) {
+    state.commit('addMessage', data)
+  },
+  async SOCKET_playerLeft (state, data) {
+    state.commit('addMessage', data)
   }
 }
 

@@ -9,6 +9,9 @@ const getters = {
 const mutations = {
   updateImage (state, data) {
     state.image = data
+  },
+  clearImage () {
+    state.image = null
   }
 }
 

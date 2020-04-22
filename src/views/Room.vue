@@ -32,10 +32,10 @@
         </v-col>
         <v-col :md="8">
             <ImageComponent/>
+            <v-btn small class="mt-2" @click="voteToSkip()">Vote to skip <div v-if="nbVoters">({{nbVoters.skipCount}}/{{nbVoters.playerCount}})</div></v-btn>
         </v-col>
         <v-col :md="2">
-          <v-card class="pa-2" outlined tile>
-          </v-card>
+            <Chat v-bind:roomId="this.$route.params.id"/>
         </v-col>
     </v-row>
     <JoinDialog v-bind:roomId="this.$route.params.id"/>
@@ -45,14 +45,36 @@
 <script>
 import JoinDialog from '../components/room/JoinDialog'
 import ImageComponent from '../components/room/Image'
+import Chat from '../components/room/Chat'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Room',
-  components: { JoinDialog, ImageComponent },
+  components: { JoinDialog, ImageComponent, Chat },
   methods: {
+    ...mapMutations('chat', ['clearMessages']),
+    ...mapMutations('image', ['clearImage']),
+    ...mapMutations('vote', ['resetNbOfVoters']),
     leaveRoom () {
-      this.$socket.emit('leaveRoom', { roomId: this.$route.params.id })
       this.$router.push('/')
+    },
+    voteToSkip () {
+      var message = {
+        roomId: this.$route.params.id
+      }
+      this.$socket.emit('voteToSkip', message)
     }
+  },
+  computed: {
+    ...mapGetters('vote', ['getNbOfVoters']),
+    nbVoters () {
+      return this.getNbOfVoters
+    }
+  },
+  beforeDestroy () {
+    this.clearMessages()
+    this.clearImage()
+    this.$socket.emit('leaveRoom', { roomId: this.$route.params.id })
+    this.resetNbOfVoters()
   }
 }
 </script>

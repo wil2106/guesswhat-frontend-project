@@ -54,8 +54,8 @@ export default {
       this[l] = !this[l]
     },
     loader () {
+      const l = this.loader
       if (this.username != null) {
-        const l = this.loader
         this[l] = !this[l]
         var message = { roomId: this.roomId, username: this.username }
         this.$socket.emit('joinRoom', message)
