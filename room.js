@@ -2,8 +2,8 @@ const Player = require('./player.js')
 const { createCanvas, loadImage } = require('canvas');
 var SAMPLESIZE = 20;
 
-class Room{ 
-   constructor(id,category,data,isPrivate = false) { 
+class Room{
+   constructor(id,category,data,isPrivate = false) {
    	//this._io = io;
    	this._id = id;
       this._isPrivate = isPrivate;
@@ -23,7 +23,7 @@ class Room{
       this._players = [];
       this._gameInProgress = false;
       this._skipRequests = [];
-    } 
+    }
 
    isFull(){
       return (this._players.length === this._playerLimit)
@@ -38,12 +38,13 @@ class Room{
       let player = new Player(socket,username,round,isGameMaster);
       this._players.push(player)
       console.log(`${username} joined room : ${this._id}`);
-      
+
       //boadcast to every one the new player username
       for(let aPlayer of this._players){
          if(aPlayer.username === username)
             continue;
          aPlayer.socket.emit('playerJoined',{joined: true,playerUsername : username});
+         aPlayer.socket.emit('addJoinedPlayer', {playerUsername: username})
       }
 
       //emit players info to joining player
@@ -52,8 +53,10 @@ class Room{
          let playerInfo = {username:aPlayer.username,points:aPlayer.points};
          playerList.push(playerInfo);
       }
-      socket.emit('playerList',{playerList :playerList});
-   
+      socket.emit('playerList',{playerList : playerList});
+      socket.emit('updatePlayerScoresList', {players: playerList})
+
+
       //if first one to join
       if(this._players.length===1 && !this._isPrivate){
          this.startGame();
@@ -67,16 +70,20 @@ class Room{
       var player = this.getPlayerBysocketId(socketId);
       if(player != null){
             console.log(`${player.object.username} left room : ${this._id}`);
-            this._players.splice(player.index, 1);
+
             //if last one to leave
             if(this._players.length===0 && this._gameInProgress){
                this.endGame();
             }else {
-               //broadcast to every player that a player just left 
+               //broadcast to every player that a player just left
                for(let aPlayer of this._players){
                   aPlayer.socket.emit('playerLeft',{joined: false, playerUsername : player.object.username});
+                  aPlayer.socket.emit('removeLeftPlayer', {playerUsername : player.object.username})
                }
             }
+
+            this._players.splice(player.index, 1);
+            //socket.emit('removeLeftPlayer', {index: player.index})
             return true;
       }
       return false;
@@ -122,7 +129,7 @@ class Room{
          this._canvas = createCanvas(this._canvasWidth, computedCanvasHeight)
          //start timer
          this._timer = setInterval(this.render.bind(this), this._renderPeriod); //bind room object reference
-         
+
       })
    }
 
@@ -130,33 +137,33 @@ class Room{
 
          //if sample size <= 1 means that image have already been rendered and sent without pixelisation so no need to re render
          if(this._sampleSize>1){
-            
-            //if final Render, render without pixelisation 
+
+            //if final Render, render without pixelisation
             if(finalRender)
                this._sampleSize = 1;
 
             var ctx = this._canvas.getContext('2d')
             ctx.drawImage(this._rawImage, 0, 0, this._canvas.width, this._canvas.height);
-   
+
             for(let y=0;y<this._canvas.height;y+=this._sampleSize){
                for(let x=0;x<this._canvas.width;x+=this._sampleSize){
-   
+
                   const data = ctx.getImageData(x, y, this._sampleSize, this._sampleSize).data;
-   
+
                   const components = data.length;
-   
+
                   let wR = 0;
                   let wG = 0;
                   let wB = 0;
                   let wTotal = 0;
-   
+
                   for (let i = 0; i < components; i += 4) {
                       // A single pixel (R, G, B, A) will take 4 positions in the array:
                       const r = data[i];
                       const g = data[i + 1];
                       const b = data[i + 2];
-                      const a = data[i + 3];    
-                      
+                      const a = data[i + 3];
+
                       // Update components for alpha-weighted average:
                       const w = a / 255;
                       wR += r * w;
@@ -164,24 +171,24 @@ class Room{
                       wB += b * w;
                       wTotal += w;
                    }
-   
+
                    const pixelsPerChannel = components / 4;
                    wR = wR / wTotal | 0;
                    wG = wG / wTotal | 0;
                    wB = wB / wTotal | 0;
-   
+
                   ctx.fillStyle = "rgb("+wR+","+wG+","+wB+")";
                   ctx.fillRect(x, y, this._sampleSize, this._sampleSize);
                }
             }
-   
+
             this._pixelisedImage = this._canvas.toDataURL();
             //once image is pixelized, broadcast to to all players of the room
             this.broadcastImage();
-            
+
             //decrease sample size
             this._sampleSize -=this._sampleSizeStep;
-   
+
             //stop timer
             if(this._sampleSize<=1)
                clearInterval(this._timer);
@@ -192,7 +199,7 @@ class Room{
             setTimeout(()=>{
                this.startNewRound();
             }, 2000);
-         }     
+         }
    }
 
 
@@ -203,11 +210,11 @@ class Room{
             //build message
             var message = {
                playerUsername : player.object.username,
-               playerColor : player.object.color,   
+               playerColor : player.object.color,
                text : text,
                valid : true
             }
-            
+
             //broadcast message
             this.broadcastMessage(message);
             //increase winner points
@@ -228,7 +235,7 @@ class Room{
             //build message
             var message = {
                playerUsername : player.object.username,
-               playerColor : player.object.color,   
+               playerColor : player.object.color,
                text : text,
                valid : false
             }
@@ -254,6 +261,7 @@ class Room{
    broadcastPointUpdate(pointUpdate){
       for(var player of this._players){
          player.socket.emit('pointUpdate',{pointUpdate : pointUpdate});
+         player.socket.emit('updatePlayerScoresList2',{pointUpdate : pointUpdate});
       }
    }
 
@@ -268,7 +276,6 @@ class Room{
          player.socket.emit('newRoundStarting');
       }
    }
-
 
    getPlayerBysocketId(socketId){
       for (let i = 0; i < this._players.length; i++) {
@@ -292,7 +299,7 @@ class Room{
       var player = this.getPlayerBysocketId(socketId);
       if(!this._skipRequests.includes(player.object.username)){
          this._skipRequests.push(player.object.username);
-         
+
          this.broadcastSkipVotesUpdate(player.object.username);
 
          if(this._skipRequests.length==this.players.length)
@@ -319,7 +326,7 @@ class Room{
    get isPrivate(){
       return this._isPrivate;
    }
-   
+
    get players(){
       return this._players;
    }
@@ -327,7 +334,7 @@ class Room{
    get playerLimit(){
       return this._playerLimit;
    }
-   
+
    get round(){
       return this._round;
    }
@@ -341,7 +348,7 @@ class Room{
       }
       return roomInfo;
    }
-} 
+}
 
 
 module.exports = Room;
