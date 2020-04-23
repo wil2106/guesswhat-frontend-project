@@ -50,16 +50,22 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Room',
   components: { JoinDialog, ImageComponent, Chat },
+  data () {
+    return {
+      roomId: this.$route.params.id
+    }
+  },
   methods: {
     ...mapMutations('chat', ['clearMessages']),
     ...mapMutations('image', ['clearImage']),
     ...mapMutations('vote', ['resetNbOfVoters']),
+    ...mapMutations('roomJoin', ['resetRequestStatus']),
     leaveRoom () {
       this.$router.push('/')
     },
     voteToSkip () {
       var message = {
-        roomId: this.$route.params.id
+        roomId: this.roomId
       }
       this.$socket.emit('voteToSkip', message)
     }
@@ -73,8 +79,9 @@ export default {
   beforeDestroy () {
     this.clearMessages()
     this.clearImage()
-    this.$socket.emit('leaveRoom', { roomId: this.$route.params.id })
+    this.resetRequestStatus()
     this.resetNbOfVoters()
+    this.$socket.emit('leaveRoom', { roomId: this.roomId })
   }
 }
 </script>

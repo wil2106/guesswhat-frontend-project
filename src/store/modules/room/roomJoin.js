@@ -9,6 +9,9 @@ const getters = {
 const mutations = {
   updateRequestStatus (state, data) {
     state.request_status = data
+  },
+  resetRequestStatus () {
+    state.request_status = null
   }
 }
 

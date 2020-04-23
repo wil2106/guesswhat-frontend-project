@@ -8,9 +8,13 @@ import SocketIO from 'socket.io-client'
 
 Vue.config.productionTip = false
 
+// Handle environment changes
+// var port = process.env.OPENSHIFT_NODEJS_PORT || 8081
+// var ipAddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO('localhost:8080'),
+  connection: SocketIO('http://localhost:8080/'),
   vuex: {
     store,
     actionPrefix: 'SOCKET_',
