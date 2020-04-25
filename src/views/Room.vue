@@ -27,8 +27,7 @@
     </v-row>
     <v-row no-gutters>
         <v-col :md="2">
-          <v-card class="pa-2" outlined tile>
-          </v-card>
+          <Rankings/>
         </v-col>
         <v-col :md="8">
             <ImageComponent/>
@@ -43,19 +42,21 @@
 </template>
 
 <script>
+import Rankings from '../components/room/Rankings'
 import JoinDialog from '../components/room/JoinDialog'
 import ImageComponent from '../components/room/Image'
 import Chat from '../components/room/Chat'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Room',
-  components: { JoinDialog, ImageComponent, Chat },
+  components: { JoinDialog, ImageComponent, Chat, Rankings },
   data () {
     return {
       roomId: this.$route.params.id
     }
   },
   methods: {
+    ...mapMutations('rankings', ['clearPlayerScoresList']),
     ...mapMutations('chat', ['clearMessages']),
     ...mapMutations('image', ['clearImage']),
     ...mapMutations('vote', ['resetNbOfVoters']),
@@ -77,6 +78,7 @@ export default {
     }
   },
   beforeDestroy () {
+    this.clearPlayerScoresList()
     this.clearMessages()
     this.clearImage()
     this.resetRequestStatus()
